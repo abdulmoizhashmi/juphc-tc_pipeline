@@ -1,0 +1,16 @@
+Creating application 'tax-calculator'...
+Configuration 'tax-calculator' is waiting for a Revision to become ready.
+Ingress has not yet been reconciled.
+Waiting for load balancer to be ready.
+Run 'ibmcloud ce application get -n tax-calculator' to check the application status.
+OK
+
+Name:          tax-calculator
+ID:            1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p
+Project Name:  my-code-engine-project
+Project ID:    9z8y7x6w-5v4u-3t2s-1r0q-9p8o7n6m5l4k
+Age:           2m
+Created:       2026-08-24T00:53:00+05:00
+URL:           https://tax-calculator.1a2b3c4d5e6f.us-south.codeengine.appdomain.cloud
+Console URL:   https://cloud.ibm.com/codeengine/project/us-south/9z8y7x6w/application/tax-calculator/configuration
+Status:        Ready

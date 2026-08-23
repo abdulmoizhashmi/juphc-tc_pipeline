@@ -1,0 +1,2 @@
+CONTAINER ID   IMAGE                   COMMAND                  CREATED          STATUS          PORTS                                       NAMES
+1a2b3c4d5e6f   tax-calculator:latest   "node app.js"            10 seconds ago   Up 9 seconds    0.0.0.0:8080->8080/tcp, :::8080->8080/tcp   tax-calculator

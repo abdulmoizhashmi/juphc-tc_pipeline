@@ -31,4 +31,7 @@ describe("Tax Calculator", () => {
   it("rejects non-numeric income", () => {
     expect(() => calculateTax("abc", brackets)).toThrowError();
   });
+  it("calculates zero tax for zero income", () => {
+    expect(calculateTax(0, brackets)).toBe(0);
+  });
 });

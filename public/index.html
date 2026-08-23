@@ -3,40 +3,102 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tax Calculator</title>
+  <meta name="description" content="Progressive income tax calculator with configurable tax brackets. Cloud Native, DevOps, Agile and NoSQL final project.">
+  <title>Tax Calculator – Cloud Native Final Project</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  <main class="container">
-    <section class="card">
-      <h1>Tax Calculator</h1>
-      <p class="subtitle">Calculate progressive income tax using configurable tax brackets.</p>
+  <main class="container" id="main-content">
+    <section class="card" aria-labelledby="app-title">
 
-      <form id="tax-form">
-        <label for="income">Annual Income</label>
-        <div class="input-row">
-          <input id="income" name="income" type="number" min="0" step="0.01"
-                 placeholder="Enter annual income" required>
-          <button type="submit">Calculate Tax</button>
+      <!-- Header -->
+      <header class="header">
+        <div class="logo" aria-hidden="true">💰</div>
+        <div class="header-text">
+          <h1 id="app-title">Tax Calculator</h1>
+          <p class="subtitle">Progressive income tax with configurable brackets</p>
+        </div>
+      </header>
+
+      <div class="divider" role="separator"></div>
+
+      <!-- Calculator Form -->
+      <form id="tax-form" novalidate aria-label="Income tax calculator">
+        <div class="form-group">
+          <label for="income">Annual Income</label>
+          <div class="input-row">
+            <div class="input-wrapper">
+              <input
+                id="income"
+                name="income"
+                type="number"
+                min="0"
+                step="0.01"
+                placeholder="e.g. 75000"
+                required
+                autocomplete="off"
+                aria-describedby="income-hint"
+              >
+              <span class="input-prefix" aria-hidden="true">$</span>
+            </div>
+            <button type="submit" id="calc-btn">Calculate Tax</button>
+          </div>
+          <span id="income-hint" class="hidden">Enter your annual gross income in USD.</span>
         </div>
       </form>
 
-      <div id="message" class="message" aria-live="polite"></div>
+      <!-- Error / Status Message -->
+      <div id="message" role="alert" aria-live="polite"></div>
 
-      <section id="result" class="result hidden">
-        <div><span>Annual income</span><strong id="income-result"></strong></div>
-        <div><span>Estimated tax</span><strong id="tax-result"></strong></div>
-        <div><span>After-tax income</span><strong id="after-tax-result"></strong></div>
+      <!-- Results Panel -->
+      <section id="result" class="hidden" aria-label="Calculation results" aria-live="polite">
+        <div class="result-row">
+          <span class="result-label">
+            <span class="icon" aria-hidden="true">💵</span>
+            Annual Income
+          </span>
+          <strong class="result-value" id="income-result"></strong>
+        </div>
+        <div class="result-row">
+          <span class="result-label">
+            <span class="icon" aria-hidden="true">🏛</span>
+            Estimated Tax
+          </span>
+          <strong class="result-value" id="tax-result"></strong>
+        </div>
+        <div class="result-row highlight">
+          <span class="result-label">
+            <span class="icon" aria-hidden="true">✅</span>
+            After-Tax Income
+          </span>
+          <strong class="result-value" id="after-tax-result"></strong>
+        </div>
+        <div style="padding: 10px 22px 16px;">
+          <span class="rate-badge" id="rate-badge" aria-live="polite"></span>
+        </div>
       </section>
 
-      <section class="brackets">
-        <h2>Tax Brackets</h2>
-        <div id="bracket-list">Loading...</div>
+      <!-- Tax Brackets -->
+      <section class="brackets" aria-labelledby="brackets-title">
+        <div class="section-title" id="brackets-title">Tax Brackets</div>
+        <div id="bracket-list" aria-label="Tax bracket table">
+          <div class="skeleton" style="height:38px;border-radius:10px;"></div>
+          <div class="skeleton" style="height:38px;border-radius:10px;margin-top:6px;opacity:0.7;"></div>
+          <div class="skeleton" style="height:38px;border-radius:10px;margin-top:6px;opacity:0.5;"></div>
+          <div class="skeleton" style="height:38px;border-radius:10px;margin-top:6px;opacity:0.3;"></div>
+        </div>
       </section>
 
-      <p class="footer">Cloud Native, DevOps, Agile and NoSQL Final Project</p>
+      <!-- Footer -->
+      <footer>
+        <p class="footer">Cloud Native · DevOps · Agile · NoSQL — Final Project</p>
+      </footer>
+
     </section>
   </main>
+
   <script src="/app.js"></script>
 </body>
 </html>
