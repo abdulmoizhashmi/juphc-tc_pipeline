@@ -1,0 +1,79 @@
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  name: tax-calculator-pipeline
+spec:
+  params:
+    - name: IMAGE
+      type: string
+    - name: GIT_URL
+      type: string
+    - name: GIT_REVISION
+      type: string
+      default: main
+    - name: CE_PROJECT
+      type: string
+    - name: CE_APP
+      type: string
+    - name: IBM_REGION
+      type: string
+      default: us-south
+    - name: IBM_RESOURCE_GROUP
+      type: string
+      default: default
+
+  workspaces:
+    - name: shared-workspace
+
+  tasks:
+    - name: clone
+      taskRef:
+        name: git-clone
+      params:
+        - name: url
+          value: $(params.GIT_URL)
+        - name: revision
+          value: $(params.GIT_REVISION)
+        - name: deleteExisting
+          value: "true"
+      workspaces:
+        - name: output
+          workspace: shared-workspace
+
+    - name: test
+      runAfter:
+        - clone
+      taskRef:
+        name: tax-test
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+
+    - name: build-and-push
+      runAfter:
+        - test
+      taskRef:
+        name: tax-build-push
+      params:
+        - name: IMAGE
+          value: $(params.IMAGE)
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+
+    - name: deploy
+      runAfter:
+        - build-and-push
+      taskRef:
+        name: tax-deploy-codeengine
+      params:
+        - name: IMAGE
+          value: $(params.IMAGE)
+        - name: CE_PROJECT
+          value: $(params.CE_PROJECT)
+        - name: CE_APP
+          value: $(params.CE_APP)
+        - name: IBM_REGION
+          value: $(params.IBM_REGION)
+        - name: IBM_RESOURCE_GROUP
+          value: $(params.IBM_RESOURCE_GROUP)

@@ -1,0 +1,19 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: tax-build-push
+spec:
+  params:
+    - name: IMAGE
+      type: string
+      description: Full image reference, e.g. us.icr.io/namespace/tax-calculator:latest
+  workspaces:
+    - name: source
+  steps:
+    - name: build-and-push
+      image: gcr.io/kaniko-project/executor:v1.23.2
+      args:
+        - --dockerfile=$(workspaces.source.path)/Dockerfile
+        - --context=$(workspaces.source.path)
+        - --destination=$(params.IMAGE)
+        - --cache=true

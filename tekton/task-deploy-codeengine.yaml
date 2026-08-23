@@ -1,0 +1,52 @@
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: tax-deploy-codeengine
+spec:
+  params:
+    - name: IMAGE
+      type: string
+    - name: CE_PROJECT
+      type: string
+    - name: CE_APP
+      type: string
+    - name: IBM_REGION
+      type: string
+    - name: IBM_RESOURCE_GROUP
+      type: string
+      default: default
+  steps:
+    - name: deploy
+      image: icr.io/continuous-delivery/pipeline/pipeline-base-image:2.0
+      env:
+        - name: IBMCLOUD_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: ibmcloud-credentials
+              key: apikey
+      script: |
+        #!/bin/bash
+        set -euo pipefail
+
+        ibmcloud login --apikey "$IBMCLOUD_API_KEY" -r "$(params.IBM_REGION)"
+        ibmcloud target -g "$(params.IBM_RESOURCE_GROUP)"
+
+        if ! ibmcloud plugin list | grep -q code-engine; then
+          ibmcloud plugin install code-engine -f
+        fi
+
+        ibmcloud ce project select --name "$(params.CE_PROJECT)"
+
+        if ibmcloud ce app get --name "$(params.CE_APP)" >/dev/null 2>&1; then
+          ibmcloud ce app update \
+            --name "$(params.CE_APP)" \
+            --image "$(params.IMAGE)" \
+            --port 8080
+        else
+          ibmcloud ce app create \
+            --name "$(params.CE_APP)" \
+            --image "$(params.IMAGE)" \
+            --port 8080
+        fi
+
+        ibmcloud ce app get --name "$(params.CE_APP)"

@@ -1,0 +1,8 @@
+node_modules
+npm-debug.log
+.git
+.gitignore
+spec
+README.md
+tekton
+.DS_Store
