@@ -40,18 +40,27 @@ spec:
         - name: output
           workspace: shared-workspace
 
-    - name: test
+    - name: npminstall
       runAfter:
         - clone
       taskRef:
-        name: tax-test
+        name: npm
       workspaces:
         - name: source
           workspace: shared-workspace
 
-    - name: build-and-push
+    - name: tests
       runAfter:
-        - test
+        - npminstall
+      taskRef:
+        name: jasmine
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+
+    - name: build
+      runAfter:
+        - tests
       taskRef:
         name: tax-build-push
       params:
@@ -63,7 +72,7 @@ spec:
 
     - name: deploy
       runAfter:
-        - build-and-push
+        - build
       taskRef:
         name: tax-deploy-codeengine
       params:

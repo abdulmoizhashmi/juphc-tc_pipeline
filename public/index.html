@@ -27,7 +27,7 @@
       <!-- Calculator Form -->
       <form id="tax-form" novalidate aria-label="Income tax calculator">
         <div class="form-group">
-          <label for="income">Annual Income</label>
+          <label for="income">Your Total Income</label>
           <div class="input-row">
             <div class="input-wrapper">
               <input
@@ -43,7 +43,7 @@
               >
               <span class="input-prefix" aria-hidden="true">$</span>
             </div>
-            <button type="submit" id="calc-btn">Calculate Tax</button>
+            <button type="submit" id="calc-btn">Calculate</button>
           </div>
           <span id="income-hint" class="hidden">Enter your annual gross income in USD.</span>
         </div>
@@ -57,14 +57,14 @@
         <div class="result-row">
           <span class="result-label">
             <span class="icon" aria-hidden="true">💵</span>
-            Annual Income
+            Your Total Income
           </span>
           <strong class="result-value" id="income-result"></strong>
         </div>
         <div class="result-row">
           <span class="result-label">
             <span class="icon" aria-hidden="true">🏛</span>
-            Estimated Tax
+            Tax Due
           </span>
           <strong class="result-value" id="tax-result"></strong>
         </div>

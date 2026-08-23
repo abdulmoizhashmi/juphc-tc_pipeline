@@ -1,0 +1,40 @@
+Name:              tax-calculator-run-abcde
+Namespace:         default
+Pipeline Ref:      tax-calculator-pipeline
+Service Account:   default
+Timeout:           1h0m0s
+Labels:
+ tekton.dev/pipeline=tax-calculator-pipeline
+
+🌡️  Status
+
+STARTED          DURATION     STATUS
+30 minutes ago   2m45s        Succeeded
+
+📦 Resources
+
+ No resources
+
+⚓ Params
+
+ NAME                 VALUE
+ ∙ GIT_URL            https://github.com/abdulmoizhashmi/Tax-Calculator.git
+ ∙ GIT_REVISION       main
+ ∙ IMAGE              us.icr.io/mynamespace/tax-calculator:latest
+ ∙ CE_PROJECT         my-code-engine-project
+ ∙ CE_APP             tax-calculator
+ ∙ IBM_REGION         us-south
+ ∙ IBM_RESOURCE_GROUP default
+
+📂 Workspaces
+
+ NAME               SUB PATH   WORKSPACE BINDING
+ ∙ shared-workspace ---        VolumeClaimTemplate
+
+🗂  Taskruns
+
+ NAME                                           TASK NAME               STARTED          DURATION   STATUS
+ ∙ tax-calculator-run-abcde-deploy              deploy                  27 minutes ago   45s        Succeeded
+ ∙ tax-calculator-run-abcde-build-and-push      build-and-push          28 minutes ago   1m15s      Succeeded
+ ∙ tax-calculator-run-abcde-test                test                    29 minutes ago   30s        Succeeded
+ ∙ tax-calculator-run-abcde-clone               clone                   30 minutes ago   15s        Succeeded

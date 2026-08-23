@@ -69,7 +69,7 @@ form.addEventListener("submit", async (event) => {
     setMessage(error.message);
   } finally {
     calcBtn.disabled = false;
-    calcBtn.textContent = "Calculate Tax";
+    calcBtn.textContent = "Calculate";
   }
 });
 
